@@ -20,6 +20,9 @@ WORKDIR /app
 # Copy the built JAR file from the build stage
 COPY --from=build /app/target/*.jar appointment-service.jar
 
+# Set the active Spring profile to 'prod'
+ENV SPRING_PROFILES_ACTIVE=prod
+
 # Expose the application port
 EXPOSE 8091
 
