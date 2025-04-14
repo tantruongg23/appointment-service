@@ -17,8 +17,21 @@ spring:
       ddl-auto: none
 
 # API document setting
+# springdoc:
+#   api-docs:
+#     enabled: false
+#   swagger-ui:
+#     enabled: false
+
 springdoc:
   api-docs:
-    enabled: false
+    enabled: true
   swagger-ui:
-    enabled: false
+    enabled: true
+
+openapi:
+  service:
+    api-docs: appointment-service
+    server: http://localhost:4953/appointment  # Không cần bắt buộc
+    title: Appointment service
+    version: 1.0.0
