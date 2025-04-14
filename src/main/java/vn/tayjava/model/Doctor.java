@@ -1,5 +1,7 @@
 package vn.tayjava.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -18,6 +20,8 @@ import lombok.Setter;
 public class Doctor extends AbstractEntity {
 
     private String fullName;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "specialty_id")
     private Specialty specialty;
