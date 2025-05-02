@@ -2,12 +2,18 @@ package vn.tayjava.service.impl;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import vn.tayjava.controller.response.PageResponse;
 import vn.tayjava.exception.IdInvalidException;
 import vn.tayjava.exception.InvalidDataException;
+import vn.tayjava.model.Doctor;
 import vn.tayjava.model.Specialty;
 import vn.tayjava.repository.SpecialtyRepository;
 import vn.tayjava.service.SpecialtyService;
@@ -35,8 +41,21 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     }
 
     @Override
-    public List<Specialty> findAll() {
-        return this.specialtyRepository.findAll();
+    public PageResponse<Specialty> findAll(int pageNo, int pageSize) {
+        int realPage = pageNo > 0 ? pageNo - 1 : 0;
+        Pageable pageable = PageRequest.of(
+                realPage,
+                pageSize);
+
+        Page<Specialty> pages = specialtyRepository.findAll(pageable);
+
+        return PageResponse.<Specialty>builder()
+                .pageNo(pageNo)
+                .pageSize(pageSize)
+                .totalPages(pages.getTotalPages())
+                .totalElements(pages.getTotalElements())
+                .items(pages.getContent())
+                .build();
     }
 
     @Override

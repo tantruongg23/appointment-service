@@ -25,7 +25,7 @@ public class AppointmentCreationReq implements Serializable {
     private String specialtyName;
 
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Chọn dịch vụ khám")
+    @NotNull(message = "Chọn dịch vụ khám")
     private ExaminationType examinationType;
 
     @NotNull(message = "Chọn bác sĩ")

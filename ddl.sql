@@ -1,9 +1,4 @@
 
--- Tạo user quoctay với quyền admin
-CREATE ROLE quoctay WITH LOGIN SUPERUSER PASSWORD 'password';
--- DROP SCHEMA public;
-
-CREATE SCHEMA public AUTHORIZATION postgres;
 
 -- DROP TYPE public."appointmentstatus";
 
@@ -36,10 +31,6 @@ CREATE SEQUENCE public.appointment_history_id_seq
 	CACHE 1
 	NO CYCLE;
 
--- Permissions
-
-ALTER SEQUENCE public.appointment_history_id_seq OWNER TO quoctay;
-GRANT ALL ON SEQUENCE public.appointment_history_id_seq TO quoctay;
 
 -- DROP SEQUENCE public.appointments_id_seq;
 
@@ -51,10 +42,6 @@ CREATE SEQUENCE public.appointments_id_seq
 	CACHE 1
 	NO CYCLE;
 
--- Permissions
-
-ALTER SEQUENCE public.appointments_id_seq OWNER TO quoctay;
-GRANT ALL ON SEQUENCE public.appointments_id_seq TO quoctay;
 
 -- DROP SEQUENCE public.doctor_schedule_id_seq;
 
@@ -66,10 +53,6 @@ CREATE SEQUENCE public.doctor_schedule_id_seq
 	CACHE 1
 	NO CYCLE;
 
--- Permissions
-
-ALTER SEQUENCE public.doctor_schedule_id_seq OWNER TO quoctay;
-GRANT ALL ON SEQUENCE public.doctor_schedule_id_seq TO quoctay;
 
 -- DROP SEQUENCE public.doctors_id_seq;
 
@@ -81,10 +64,6 @@ CREATE SEQUENCE public.doctors_id_seq
 	CACHE 1
 	NO CYCLE;
 
--- Permissions
-
-ALTER SEQUENCE public.doctors_id_seq OWNER TO quoctay;
-GRANT ALL ON SEQUENCE public.doctors_id_seq TO quoctay;
 
 -- DROP SEQUENCE public.patients_id_seq;
 
@@ -96,10 +75,6 @@ CREATE SEQUENCE public.patients_id_seq
 	CACHE 1
 	NO CYCLE;
 
--- Permissions
-
-ALTER SEQUENCE public.patients_id_seq OWNER TO quoctay;
-GRANT ALL ON SEQUENCE public.patients_id_seq TO quoctay;
 
 -- DROP SEQUENCE public.specialties_id_seq;
 
@@ -113,9 +88,6 @@ CREATE SEQUENCE public.specialties_id_seq
 
 -- Permissions
 
-ALTER SEQUENCE public.specialties_id_seq OWNER TO quoctay;
-GRANT ALL ON SEQUENCE public.specialties_id_seq TO quoctay;
--- public.appointment_history definition
 
 -- Drop table
 
@@ -132,12 +104,6 @@ CREATE TABLE public.appointment_history (
 	CONSTRAINT appointment_history_old_status_check CHECK (((old_status)::text = ANY ((ARRAY['PENDING'::character varying, 'CONFIRMED'::character varying, 'COMPLETED'::character varying, 'CANCELLED'::character varying])::text[]))),
 	CONSTRAINT appointment_history_pkey PRIMARY KEY (id)
 );
-
--- Permissions
-
-ALTER TABLE public.appointment_history OWNER TO quoctay;
-GRANT ALL ON TABLE public.appointment_history TO quoctay;
-
 
 -- public.appointments definition
 
@@ -170,10 +136,6 @@ CREATE TABLE public.appointments (
 	CONSTRAINT appointments_status_check CHECK (((status)::text = ANY ((ARRAY['PENDING'::character varying, 'CONFIRMED'::character varying, 'COMPLETED'::character varying, 'CANCELLED'::character varying])::text[])))
 );
 
--- Permissions
-
-ALTER TABLE public.appointments OWNER TO quoctay;
-GRANT ALL ON TABLE public.appointments TO quoctay;
 
 
 -- public.doctor_schedule definition
@@ -198,10 +160,6 @@ CREATE TABLE public.doctor_schedule (
 	CONSTRAINT doctor_schedule_pkey PRIMARY KEY (id)
 );
 
--- Permissions
-
-ALTER TABLE public.doctor_schedule OWNER TO quoctay;
-GRANT ALL ON TABLE public.doctor_schedule TO quoctay;
 
 
 -- public.patients definition
@@ -230,11 +188,6 @@ CREATE TABLE public.patients (
 	CONSTRAINT patients_pkey PRIMARY KEY (id)
 );
 
--- Permissions
-
-ALTER TABLE public.patients OWNER TO quoctay;
-GRANT ALL ON TABLE public.patients TO quoctay;
-
 
 -- public.specialties definition
 
@@ -254,10 +207,6 @@ CREATE TABLE public.specialties (
 	CONSTRAINT ukbhb8s9o5hv30lkbidtod9cixc UNIQUE (name)
 );
 
--- Permissions
-
-ALTER TABLE public.specialties OWNER TO quoctay;
-GRANT ALL ON TABLE public.specialties TO quoctay;
 
 
 -- public.doctors definition
@@ -273,19 +222,12 @@ CREATE TABLE public.doctors (
 	updated_at timestamp(6) NULL,
 	updated_by varchar(255) NULL,
 	full_name varchar(255) NULL,
+	available bool default true,
 	specialty_id int8 NULL,
 	CONSTRAINT doctors_pkey PRIMARY KEY (id),
 	CONSTRAINT fkb4ymcpidvwfn4kybv4adfvxcm FOREIGN KEY (specialty_id) REFERENCES public.specialties(id)
 );
 
--- Permissions
-
-ALTER TABLE public.doctors OWNER TO quoctay;
-GRANT ALL ON TABLE public.doctors TO quoctay;
 
 
 
-
--- Permissions
-
-GRANT ALL ON SCHEMA public TO postgres;

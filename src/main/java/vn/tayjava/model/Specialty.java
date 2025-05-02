@@ -3,6 +3,8 @@ package vn.tayjava.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,6 +32,7 @@ public class Specialty extends AbstractEntity {
     private String code;
 
     @OneToMany(mappedBy = "specialty", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Doctor> doctors;
 
 }

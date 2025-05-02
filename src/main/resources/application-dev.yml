@@ -25,7 +25,7 @@ springdoc:
 openapi:
   service:
     api-docs: appointment-service
-#    server: http://localhost:${server.port}
-    server: http://localhost:4953/appointment
+    server: http://localhost:${server.port}
+    # server: http://localhost:4953/appointment
     title: Appointment service
     version: 1.0.0

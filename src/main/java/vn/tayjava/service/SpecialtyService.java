@@ -1,13 +1,12 @@
 package vn.tayjava.service;
 
-import java.util.List;
-
+import vn.tayjava.controller.response.PageResponse;
 import vn.tayjava.model.Specialty;
 
 public interface SpecialtyService {
     Specialty create(Specialty request);
 
-    List<Specialty> findAll();
+    PageResponse<Specialty> findAll(int pageNo, int pageSize);
 
     Specialty findOne(long id);
 
