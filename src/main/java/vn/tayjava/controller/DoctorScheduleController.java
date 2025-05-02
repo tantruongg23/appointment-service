@@ -21,7 +21,7 @@ import vn.tayjava.model.DoctorSchedule;
 import vn.tayjava.service.DoctorScheduleService;
 
 @RestController
-@RequestMapping("/doctor-schedules")
+@RequestMapping("/api/v1/doctor-schedules")
 @Slf4j(topic = "DOCTOR-SCHEDULE-CONTROLLER")
 @RequiredArgsConstructor
 public class DoctorScheduleController {

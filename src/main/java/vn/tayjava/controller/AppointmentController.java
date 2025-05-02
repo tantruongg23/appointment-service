@@ -22,7 +22,7 @@ import vn.tayjava.service.AppointmentService;
 
 @RestController
 @Slf4j(topic = "APPOINTMENT-CONTROLLER")
-@RequestMapping("/appointments")
+@RequestMapping("/api/v1/appointments")
 @RequiredArgsConstructor
 public class AppointmentController {
 
@@ -30,7 +30,7 @@ public class AppointmentController {
 
     @PostMapping()
     public ResponseData<?> createAppointment(@RequestBody AppointmentCreationReq request) {
-        log.info("Request create appointment: {}", request);
+          log.info("Request create appointment: {}", request);
         // not return error message because Security
         try {
             Appointment appointment = appointmentService.create(request);

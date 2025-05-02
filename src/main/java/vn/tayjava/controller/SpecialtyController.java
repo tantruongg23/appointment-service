@@ -19,7 +19,7 @@ import vn.tayjava.model.Specialty;
 import vn.tayjava.service.SpecialtyService;
 
 @RestController
-@RequestMapping("/specialties")
+@RequestMapping("/api/v1/specialties")
 @RequiredArgsConstructor
 @Slf4j(topic = "SPECIALTY-CONTROLLER")
 public class SpecialtyController {
