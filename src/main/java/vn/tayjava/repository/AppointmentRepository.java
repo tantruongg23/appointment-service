@@ -14,4 +14,6 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long>, JpaSpecificationExecutor<Appointment> {
 
     Page<Appointment> findByPatientId(Long patientId, Pageable pageable);
+
+    Page<Appointment> findByDoctorId(Long patientId, Pageable pageable);
 }

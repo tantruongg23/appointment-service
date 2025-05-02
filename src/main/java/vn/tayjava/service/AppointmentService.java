@@ -13,5 +13,7 @@ public interface AppointmentService {
 
     PageResponse<Appointment> getAppointmentsByPatientId(Long patientId, int pageNo, int pageSize);
 
+    PageResponse<Appointment> getAppointmentsByDoctorId(Long doctorId, int pageNo, int pageSize);
+
     PageResponse<Appointment> getAllAppointments(int pageNo, int pageSize);
 }

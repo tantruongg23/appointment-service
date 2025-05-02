@@ -123,4 +123,21 @@ public class AppointmentServiceImpl implements AppointmentService {
                 return result;
         }
 
+        @Override
+        public PageResponse<Appointment> getAppointmentsByDoctorId(Long doctorId, int pageNo, int pageSize) {
+                int newPageNo = pageNo == 0 ? pageNo : pageNo - 1;
+                Pageable pageable = PageRequest.of(newPageNo, pageSize, Sort.by("appointmentDate").descending());
+                //
+                Page<Appointment> pageAppointments = this.appointmentRepository.findByDoctorId(doctorId, pageable);
+                PageResponse<Appointment> result = PageResponse.<Appointment>builder()
+                                .pageNo(pageNo)
+                                .pageSize(pageSize)
+                                .totalPages(pageAppointments.getTotalPages())
+                                .totalElements(pageAppointments.getTotalElements())
+                                .items(pageAppointments.getContent())
+                                .build();
+
+                return result;
+        }
+
 }

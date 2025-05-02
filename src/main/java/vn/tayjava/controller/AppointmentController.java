@@ -162,4 +162,27 @@ public class AppointmentController {
         PageResponse<Appointment> appointments = appointmentService.getAllAppointments(page, size);
         return new ResponseData<>(HttpStatus.OK.value(), "Lấy tất cả lịch hẹn thành công", appointments);
     }
+
+    /*
+     * ───────────────────────────────────────────────────────────────────────*\
+     * 5. LẤY LỊCH THEO BÁC SĨ
+     * \*───────────────────────────────────────────────────────────────────────
+     */
+    @Operation(summary = "Danh sách lịch hẹn của bác sĩ", description = "Trả về các lịch hẹn của một bác sĩ theo ID, sắp xếp giảm dần theo ngày.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lấy tất cả lịch hẹn của bác sĩ thành công")
+    })
+    @GetMapping("/doctor/{doctorId}")
+    public ResponseData<?> getAppointmentsByDoctor(
+            @PathVariable Long doctorId,
+            @Parameter(description = "Trang", example = "1") @RequestParam(defaultValue = "1") int page,
+            @Parameter(description = "Kích thước trang", example = "10") @RequestParam(defaultValue = "10") int size) {
+
+        log.info("Request get appointments by doctor id: {}", doctorId);
+        PageResponse<Appointment> appointments = appointmentService.getAppointmentsByDoctorId(doctorId, page, size);
+
+        return new ResponseData<>(HttpStatus.OK.value(),
+                "Lấy tất cả lịch hẹn của bác sĩ thành công", appointments);
+    }
+
 }
